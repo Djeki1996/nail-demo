@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Демо-сайт маникюрного салона: работы, цены и онлайн-запись.">
+<title>Guzal Salon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#FBF5F4; --surface:#FFFFFF; --ink:#2B1621; --muted:#7A5E69; --line:#EBDCE0;
+  --accent:#A3325F; --accent-ink:#FFFFFF; --blush:#F4DDE3; --gold:#B8895A;
+  --busy:#EFE6E8; --ok:#2F7D5B;
+  --display:"Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --body:"Jost", "Segoe UI", system-ui, sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#1C1117; --surface:#26171F; --ink:#F6E9EE; --muted:#BFA3AE; --line:#3D2833;
+    --accent:#E0789F; --accent-ink:#2B1621; --blush:#3A2230; --gold:#D6AE84; --busy:#2E1E26; --ok:#6CC49B;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#1C1117; --surface:#26171F; --ink:#F6E9EE; --muted:#BFA3AE; --line:#3D2833;
+  --accent:#E0789F; --accent-ink:#2B1621; --blush:#3A2230; --gold:#D6AE84; --busy:#2E1E26; --ok:#6CC49B;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding-inline:16px}
+.wrap{max-width:1140px;margin-inline:auto}
+h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.08;text-wrap:balance;margin:0}
+h2{font-size:clamp(34px,5vw,52px)}
+h2 em,h1 em{font-style:italic;color:var(--accent)}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:14px 26px;background:var(--accent);color:var(--accent-ink);font-weight:500;text-decoration:none;letter-spacing:.02em;transition:transform .2s, box-shadow .2s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 22px -10px var(--accent)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn[disabled]{opacity:.4;pointer-events:none}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(10px);margin-inline:-16px;padding:12px 16px;border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo svg{width:46px;height:46px;flex:none}
+.logo .name{font-family:var(--display);font-size:26px;font-weight:600;line-height:1}
+.logo .name small{display:block;font-family:var(--body);font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-top:4px}
+nav.links{display:flex;gap:26px;font-size:15px}
+nav.links a{text-decoration:none;color:var(--muted)}
+nav.links a:hover{color:var(--ink)}
+@media (max-width:860px){nav.links{display:none}}
+@media (max-width:420px){header.top .btn{padding:11px 16px;font-size:14px}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding-block:56px 72px}
+.hero h1{font-size:clamp(44px,7vw,84px);letter-spacing:-.01em}
+.hero .lead{font-size:18px;color:var(--muted);max-width:30em;margin-top:22px}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.facts{display:flex;flex-wrap:wrap;gap:28px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
+.facts b{display:block;font-family:var(--display);font-size:30px;font-weight:600;line-height:1}
+.facts span{font-size:13px;color:var(--muted)}
+.hero-art{position:relative}
+.hero-art .main{border-radius:220px 220px var(--r) var(--r);overflow:hidden;aspect-ratio:4/5;max-width:100%}
+.hero-art img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-art .chip{position:absolute;left:-18px;bottom:36px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:10px 18px 10px 10px;display:flex;align-items:center;gap:10px;font-size:14px;box-shadow:0 14px 30px -18px rgba(43,22,33,.45)}
+.hero-art .chip i{width:34px;height:34px;border-radius:50%;background:var(--blush);display:grid;place-items:center;color:var(--accent);font-style:normal}
+@media (max-width:860px){.hero{grid-template-columns:1fr;padding-block:32px 48px;gap:32px}.hero-art{max-width:460px}.hero-art .chip{left:12px}}
+
+section{padding-block:72px;border-top:1px solid var(--line)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.sec-head p{color:var(--muted);max-width:28em}
+
+/* services */
+.svc{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}
+.svc-row{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding-block:18px;border-bottom:1px dashed var(--line)}
+.svc-row h3{font-size:24px}
+.svc-row .price{font-family:var(--display);font-size:24px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+.svc-row .meta{font-size:14px;color:var(--muted);grid-column:1/-1;display:flex;gap:14px;flex-wrap:wrap}
+.svc-row .meta b{font-weight:500;color:var(--ink)}
+@media (max-width:760px){.svc{grid-template-columns:1fr}}
+
+/* gallery */
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters button{border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 16px;font-size:14px;color:var(--muted)}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.gallery{columns:3 260px;column-gap:14px}
+.gallery figure{margin:0 0 14px;break-inside:avoid;border-radius:var(--r);overflow:hidden;position:relative;cursor:zoom-in}
+.gallery img{width:100%;display:block;transition:transform .5s}
+.gallery figure:hover img{transform:scale(1.04)}
+.gallery figcaption{position:absolute;left:10px;bottom:10px;background:color-mix(in srgb,var(--surface) 90%,transparent);border-radius:999px;padding:4px 12px;font-size:13px}
+.lightbox{position:fixed;inset:0;z-index:50;background:rgba(20,8,14,.88);display:grid;place-items:center;padding:24px}
+.lightbox img{max-height:86vh;max-width:100%;border-radius:var(--r)}
+.lightbox button{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:16px;background:#fff;color:#2B1621;border:0;border-radius:50%;width:44px;height:44px;font-size:22px}
+
+/* masters */
+.masters{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.master{display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.master .ph{width:120px;height:120px;border-radius:50%;overflow:hidden;background:var(--blush)}
+.master .ph img{width:100%;height:100%;object-fit:cover}
+.master h3{font-size:28px}
+.master p{color:var(--muted);font-size:15px;margin-top:4px}
+.master .tag{display:inline-block;margin-top:10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:600}
+@media (max-width:760px){.masters{grid-template-columns:1fr}.master{grid-template-columns:84px 1fr}.master .ph{width:84px;height:84px}}
+
+/* booking */
+.book{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start}
+@media (max-width:900px){.book{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px}
+.step{padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid var(--line)}
+.step:last-child{border:0;margin:0;padding:0}
+.step h3{font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1px solid var(--line);background:var(--ground);border-radius:12px;padding:10px 14px;text-align:left;font-size:14px;line-height:1.3;transition:border-color .15s}
+.opt small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.opt:hover{border-color:var(--accent)}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--blush);box-shadow:inset 0 0 0 1px var(--accent)}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.day{flex:none;width:62px;border:1px solid var(--line);background:var(--ground);border-radius:12px;padding:8px 0;text-align:center;font-size:12px;color:var(--muted)}
+.day b{display:block;font-family:var(--display);font-size:24px;color:var(--ink);font-weight:600;line-height:1.1}
+.day[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.day[aria-pressed="true"] b{color:var(--accent-ink)}
+.day:disabled{opacity:.35;cursor:not-allowed}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px}
+.slot{border:1px solid var(--line);background:var(--ground);border-radius:10px;padding:9px 0;font-variant-numeric:tabular-nums;font-size:15px}
+.slot:disabled{background:var(--busy);color:var(--muted);text-decoration:line-through;cursor:not-allowed;border-color:transparent}
+.slot[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--muted);margin-top:12px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:6px;border:1px solid var(--line);background:var(--ground)}
+.legend i.b{background:var(--busy);border-color:transparent}
+.legend i.s{background:var(--accent);border-color:var(--accent)}
+.field{display:grid;gap:6px;margin-bottom:12px}
+.field label{font-size:13px;color:var(--muted)}
+.field input{font:inherit;color:var(--ink);background:var(--ground);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.field input:focus{outline:none;border-color:var(--accent)}
+.summary{position:sticky;top:calc(90px + env(safe-area-inset-top,0px))}
+.summary dl{display:grid;grid-template-columns:auto 1fr;gap:10px 14px;margin:0 0 20px;font-size:15px}
+.summary dt{color:var(--muted)}
+.summary dd{margin:0;text-align:right;font-weight:500}
+.summary .total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:16px;margin-bottom:18px}
+.summary .total b{font-family:var(--display);font-size:32px;font-weight:600;font-variant-numeric:tabular-nums}
+.summary .btn{width:100%;justify-content:center}
+.err{color:#C0392B;font-size:13px;margin-top:10px;min-height:1em}
+.done{text-align:center;padding-block:12px}
+.done .tick{width:64px;height:64px;border-radius:50%;background:var(--blush);color:var(--accent);display:grid;place-items:center;margin:0 auto 14px;font-size:30px}
+.done h3{font-size:32px;margin-bottom:8px}
+.done p{color:var(--muted)}
+.demo-note{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.45}
+
+/* admin */
+.admin{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px}
+.admin-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.admin-head h3{font-size:30px}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.stat{background:var(--ground);border:1px solid var(--line);border-radius:12px;padding:8px 14px;font-size:13px;color:var(--muted)}
+.stat b{color:var(--ink);font-size:18px;font-weight:600;margin-right:6px;font-variant-numeric:tabular-nums}
+.timeline-wrap{overflow-x:auto}
+.timeline{display:grid;grid-template-columns:56px repeat(2,minmax(220px,1fr));gap:0 12px;min-width:520px;position:relative}
+.tl-col{position:relative;border-left:1px solid var(--line)}
+.tl-col h4{margin:0 0 8px;font-family:var(--display);font-size:22px;font-weight:600;height:32px}
+.tl-hours{position:relative}
+.tl-hours div{height:48px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;transform:translateY(-7px)}
+.tl-body{position:relative;background:repeating-linear-gradient(var(--ground) 0 47px,var(--line) 47px 48px)}
+.appt{position:absolute;left:6px;right:6px;border-radius:10px;background:var(--blush);border-left:3px solid var(--accent);padding:6px 10px;font-size:13px;line-height:1.3;overflow:hidden}
+.appt b{display:block;font-weight:600}
+.appt span{color:var(--muted)}
+.appt.new{border-left-color:var(--ok)}
+.appt button{position:absolute;top:4px;right:6px;border:0;background:transparent;color:var(--muted);font-size:16px;line-height:1}
+
+/* contacts */
+.contacts{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
+.contacts .info{display:grid;gap:18px;align-content:start}
+.contacts .info div span{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.contacts .info div b{font-weight:500;font-size:19px}
+.contacts .pic{border-radius:var(--r);overflow:hidden;min-height:260px}
+.contacts .pic img{width:100%;height:100%;object-fit:cover}
+@media (max-width:760px){.contacts{grid-template-columns:1fr}}
+.ph-note{font-size:12px;color:var(--gold)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px;flex:none}
+.lang button{border:0;background:transparent;border-radius:999px;padding:6px 11px;font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--muted)}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
+.head-right{display:flex;align-items:center;gap:10px}
+@media (max-width:420px){.lang button{padding:5px 8px}.logo .name small{display:none}}
+.promo{margin-inline:-16px;padding:9px 16px;background:var(--ink);color:var(--ground);font-size:14px;text-align:center;line-height:1.4}
+.promo a{color:inherit;font-weight:600;white-space:nowrap}
+.promo-foot{width:100%;background:var(--blush);border-radius:14px;padding:18px 20px;color:var(--ink);display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between}
+.promo-foot b{font-family:var(--display);font-size:22px;font-weight:600}
+.promo-foot .links2{display:flex;gap:10px;flex-wrap:wrap}
+.promo-foot .links2 a{border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:8px 16px;text-decoration:none;font-size:14px;font-weight:500}
+footer{border-top:1px solid var(--line);padding-block:28px 36px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+footer button{background:none;border:0;color:var(--muted);text-decoration:underline;padding:0}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="mark" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="30.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <!-- almond nail shape inside the G -->
+      <path d="M32 14c6 0 10 8 10 19 0 8-4 14-10 14s-10-6-10-14c0-11 4-19 10-19z" fill="var(--accent)" opacity=".16"/>
+      <path d="M32 18.5c3.6 0 6 5.6 6 13.4" fill="none" stroke="var(--accent)" stroke-width="1.2" stroke-linecap="round" opacity=".7"/>
+      <text x="32" y="44" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-style="italic" font-weight="600" font-size="36" fill="currentColor">G</text>
+      <circle cx="47" cy="17" r="1.8" fill="var(--gold)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="promo"><span data-t="promo"></span> <a href="tel:+998933963230">+998 93 396 32 30</a></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Guzal Salon">
+      <svg><use href="#mark"/></svg>
+      <span class="name">Guzal<small>nail salon</small></span>
+    </a>
+    <nav class="links">
+      <a href="#services" data-t="navSvc"></a>
+      <a href="#works" data-t="navWorks"></a>
+      <a href="#masters" data-t="navMasters"></a>
+      <a href="#contacts" data-t="navContacts"></a>
+    </nav>
+    <div class="head-right">
+      <div class="lang" id="lang" role="group" aria-label="Язык / Til">
+        <button data-l="ru">RU</button><button data-l="uz">UZ</button>
+      </div>
+      <a class="btn" href="#booking" data-t="book"></a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <div class="hero">
+    <div>
+      <p class="eyebrow" data-t="heroEyebrow"></p>
+      <h1 style="margin-top:14px" data-t="heroH1"></h1>
+      <p class="lead" data-t="heroLead"></p>
+      <div class="cta">
+        <a class="btn" href="#booking" data-t="pickTime"></a>
+        <a class="btn ghost" href="#works" data-t="seeWorks"></a>
+      </div>
+      <div class="facts">
+        <div><b data-t="f1b"></b><span data-t="f1s"></span></div>
+        <div><b data-t="f2b"></b><span data-t="f2s"></span></div>
+        <div><b>10:00–20:00</b><span data-t="f3s"></span></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="main"><img src="img/hero.jpg" alt=""></div>
+      <div class="chip"><i>✓</i><span id="nextFree"></span></div>
+    </div>
+  </div>
+
+  <section id="services">
+    <div class="sec-head">
+      <div><p class="eyebrow" data-t="priceEyebrow"></p><h2 style="margin-top:8px" data-t="priceH2"></h2></div>
+      <p data-t="priceNote"></p>
+    </div>
+    <div class="svc" id="svcList"></div>
+  </section>
+
+  <section id="works">
+    <div class="sec-head">
+      <div><p class="eyebrow" data-t="worksEyebrow"></p><h2 style="margin-top:8px" data-t="worksH2"></h2></div>
+      <div class="filters" id="filters"></div>
+    </div>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <section id="masters">
+    <div class="sec-head">
+      <div><p class="eyebrow" data-t="teamEyebrow"></p><h2 style="margin-top:8px" data-t="navMasters"></h2></div>
+    </div>
+    <div class="masters" id="masterList"></div>
+  </section>
+
+  <section id="booking">
+    <div class="sec-head">
+      <div><p class="eyebrow" data-t="bookEyebrow"></p><h2 style="margin-top:8px" data-t="bookH2"></h2></div>
+      <p data-t="bookNote"></p>
+    </div>
+    <div class="book">
+      <div class="panel" id="bookForm">
+        <div class="step"><h3 data-t="s1"></h3><div class="opts" id="pickSvc"></div></div>
+        <div class="step"><h3 data-t="s2"></h3><div class="opts" id="pickMaster"></div></div>
+        <div class="step"><h3 data-t="s3"></h3><div class="days" id="pickDay"></div></div>
+        <div class="step"><h3 data-t="s4"></h3><div class="slots" id="pickSlot"></div>
+          <div class="legend"><span><i></i><span data-t="lFree"></span></span><span><i class="b"></i><span data-t="lBusy"></span></span><span><i class="s"></i><span data-t="lMine"></span></span></div>
+        </div>
+        <div class="step"><h3 data-t="s5"></h3>
+          <div class="field"><label for="cName" data-t="name"></label><input id="cName" autocomplete="name" data-tp="namePh"></div>
+          <div class="field"><label for="cPhone" data-t="phone"></label><input id="cPhone" inputmode="tel" autocomplete="tel" placeholder="+998 90 123 45 67"></div>
+        </div>
+      </div>
+      <aside class="panel summary" id="summary"></aside>
+    </div>
+  </section>
+
+  <section id="admin" hidden>
+    <div class="admin">
+      <div class="admin-head">
+        <div><p class="eyebrow" data-t="cabinet"></p><h3 id="admTitle"></h3></div>
+        <div class="stats" id="admStats"></div>
+      </div>
+      <div class="days" id="admDays" style="margin-bottom:20px"></div>
+      <div class="timeline-wrap"><div class="timeline" id="timeline"></div></div>
+      <p class="demo-note" data-t="admNote"></p>
+    </div>
+  </section>
+
+  <section id="contacts">
+    <div class="contacts">
+      <div class="info">
+        <div><p class="eyebrow" data-t="navContacts"></p><h2 style="margin-top:8px" data-t="contH2"></h2></div>
+        <div><span data-t="addr"></span><b data-t="addrV"></b> <span class="ph-note" data-t="tmp"></span></div>
+        <div><span data-t="phone"></span><b>+998 __ ___ __ __</b></div>
+        <div><span>Instagram · Telegram</span><b>@guzal.salon</b></div>
+        <div><span data-t="hours"></span><b data-t="hoursV"></b></div>
+        <div><a class="btn" href="#booking" data-t="bookOnline"></a></div>
+      </div>
+      <div class="pic"><img src="img/salon.jpg" alt=""></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="promo-foot"><div><b data-t="promoH"></b><div data-t="promoP"></div></div>
+      <div class="links2"><a href="tel:+998933963230">+998 93 396 32 30</a><a href="https://t.me/+998933963230" target="_blank" rel="noopener">Telegram</a><a href="https://wa.me/998933963230" target="_blank" rel="noopener">WhatsApp</a></div></div>
+    <span>© 2026 Guzal Salon</span>
+    <button id="adminToggle"></button>
+  </footer>
+</main>
+
+<div class="lightbox" id="lb" hidden><button aria-label="×" id="lbClose">×</button><img id="lbImg" alt=""></div>
+
+<script>
+const I18N={
+ru:{promo:'Это демо-сайт. Хотите такой же для своего салона? Пишите Ays:',promoH:'Хотите такой сайт?',promoP:'Сделаем с вашими фото, ценами и онлайн-записью за 1 день. Ays',navSvc:'Услуги и цены',navWorks:'Работы',navMasters:'Мастера',navContacts:'Контакты',book:'Записаться',
+ heroEyebrow:'Маникюр · педикюр · наращивание',heroH1:'Руки, которые <em>хочется</em> показывать',
+ heroLead:'Аккуратный маникюр и стойкое покрытие до 4 недель. Выберите услугу и свободное время онлайн, без звонков.',
+ pickTime:'Выбрать время',seeWorks:'Смотреть работы',f1b:'3–4 нед.',f1s:'носится покрытие',f2b:'Сухожар',f2s:'стерилизация инструмента',f3s:'каждый день, кроме вс',
+ priceEyebrow:'Прайс',priceH2:'Услуги и <em>цены</em>',priceNote:'Цены в сумах. Время указано вместе со снятием старого покрытия.',
+ worksEyebrow:'Портфолио',worksH2:'Наши <em>работы</em>',teamEyebrow:'Команда',
+ bookEyebrow:'Онлайн-запись',bookH2:'Выберите <em>время</em>',bookNote:'Показаны только свободные окошки. Занятое время зачёркнуто.',
+ s1:'1. Услуга',s2:'2. Мастер',s3:'3. День',s4:'4. Время',s5:'5. Ваши данные',lFree:'свободно',lBusy:'занято',lMine:'ваш выбор',
+ name:'Имя',namePh:'Например, Мадина',phone:'Телефон',cabinet:'Кабинет мастера',
+ admNote:'Здесь мастер видит все записи по дням. Крестик отменяет запись, и время снова становится свободным для клиентов.',
+ contH2:'Ждём <em>вас</em>',addr:'Адрес',addrV:'Ташкент, ул. Примерная, 12',tmp:'временно, заменим',hours:'Часы работы',hoursV:'Пн–Сб 10:00–20:00, вс выходной',
+ bookOnline:'Записаться онлайн',adminIn:'Вход для мастера',adminOut:'Скрыть кабинет',
+ cur:'сум',from:n=>'от '+n,h:'ч',min:'мин',today:'сегодня',tomorrow:'завтра',off:'вых.',offT:'Выходной',full:'Всё занято',rec:'зап.',pickDay:'Выберите день',
+ next:(d,t)=>`Ближайшее окошко: ${d}, ${t}`,yours:'Ваша запись',svc:'Услуга',master:'Мастер',date:'Дата',time:'Время',total:'Итого',confirm:'Подтвердить запись',
+ demo:'Демо-версия: запись сохраняется только в этом браузере. На настоящем сайте она придёт мастеру в Telegram и появится в кабинете.',
+ eTime:'Выберите время в шаге 4.',eName:'Укажите имя.',ePhone:'Укажите телефон, например +998 90 123 45 67.',eTaken:'Это время только что заняли. Выберите другое.',
+ doneH:'Вы записаны!',doneP:(n,d,t)=>`${n}, ждём вас ${d} в ${t}.`,doneM:(s,m)=>`${s}, мастер ${m}.`,remind:'За 2 часа до визита напомним в Telegram.',again:'Записаться ещё',
+ admTitle:d=>'Записи на '+d,recs:'записей',rev:'выручка',cancel:'Отменить запись',
+ wd:['вс','пн','вт','ср','чт','пт','сб'],mon:['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'],
+ dm:(d,m)=>d+' '+m,monS:m=>m.slice(0,3)},
+uz:{promo:'Bu demo sayt. Salonigiz uchun shunday sayt kerakmi? Ays ga yozing:',promoH:'Shunday sayt kerakmi?',promoP:'Rasmlaringiz, narxlaringiz va onlayn yozilish bilan 1 kunda tayyorlaymiz. Ays',navSvc:'Xizmatlar va narxlar',navWorks:'Ishlarimiz',navMasters:'Ustalar',navContacts:'Kontaktlar',book:'Yozilish',
+ heroEyebrow:'Manikyur · pedikyur · tirnoq o‘stirish',heroH1:'Ko‘rsatgingiz <em>keladigan</em> qo‘llar',
+ heroLead:'Toza manikyur va 4 haftagacha chidamli qoplama. Xizmat va bo‘sh vaqtni onlayn tanlang, qo‘ng‘iroqsiz.',
+ pickTime:'Vaqt tanlash',seeWorks:'Ishlarni ko‘rish',f1b:'3–4 hafta',f1s:'qoplama saqlanadi',f2b:'Quruq issiqlik',f2s:'asboblar sterilizatsiyasi',f3s:'yakshanbadan tashqari har kuni',
+ priceEyebrow:'Narxlar',priceH2:'Xizmatlar va <em>narxlar</em>',priceNote:'Narxlar so‘mda. Vaqt eski qoplamani olib tashlash bilan birga ko‘rsatilgan.',
+ worksEyebrow:'Portfolio',worksH2:'Bizning <em>ishlarimiz</em>',teamEyebrow:'Jamoa',
+ bookEyebrow:'Onlayn yozilish',bookH2:'Vaqtni <em>tanlang</em>',bookNote:'Faqat bo‘sh vaqtlar ko‘rsatilgan. Band vaqt chizib qo‘yilgan.',
+ s1:'1. Xizmat',s2:'2. Usta',s3:'3. Kun',s4:'4. Vaqt',s5:'5. Ma’lumotlaringiz',lFree:'bo‘sh',lBusy:'band',lMine:'sizning tanlovingiz',
+ name:'Ism',namePh:'Masalan, Madina',phone:'Telefon',cabinet:'Usta kabineti',
+ admNote:'Bu yerda usta kunlar bo‘yicha barcha yozuvlarni ko‘radi. Xoch belgisi yozuvni bekor qiladi va vaqt mijozlar uchun yana bo‘shaydi.',
+ contH2:'Sizni <em>kutamiz</em>',addr:'Manzil',addrV:'Toshkent, Namuna ko‘chasi, 12',tmp:'vaqtincha, almashtiramiz',hours:'Ish vaqti',hoursV:'Du–Sh 10:00–20:00, yakshanba dam olish kuni',
+ bookOnline:'Onlayn yozilish',adminIn:'Usta uchun kirish',adminOut:'Kabinetni yopish',
+ cur:'so‘m',from:n=>n+'dan',h:'soat',min:'daq',today:'bugun',tomorrow:'ertaga',off:'dam',offT:'Dam olish kuni',full:'Hammasi band',rec:'yoz.',pickDay:'Kunni tanlang',
+ next:(d,t)=>`Eng yaqin bo‘sh vaqt: ${d}, ${t}`,yours:'Sizning yozuvingiz',svc:'Xizmat',master:'Usta',date:'Sana',time:'Vaqt',total:'Jami',confirm:'Yozuvni tasdiqlash',
+ demo:'Demo versiya: yozuv faqat shu brauzerda saqlanadi. Haqiqiy saytda u ustaga Telegramda keladi va kabinetda paydo bo‘ladi.',
+ eTime:'4-qadamda vaqtni tanlang.',eName:'Ismingizni kiriting.',ePhone:'Telefon raqamingizni kiriting, masalan +998 90 123 45 67.',eTaken:'Bu vaqt hozirgina band qilindi. Boshqasini tanlang.',
+ doneH:'Siz yozildingiz!',doneP:(n,d,t)=>`${n}, sizni ${d} kuni soat ${t} da kutamiz.`,doneM:(s,m)=>`${s}, usta ${m}.`,remind:'Tashrifdan 2 soat oldin Telegramda eslatamiz.',again:'Yana yozilish',
+ admTitle:d=>d+' yozuvlari',recs:'yozuv',rev:'tushum',cancel:'Yozuvni bekor qilish',
+ wd:['ya','du','se','ch','pa','ju','sh'],mon:['yanvar','fevral','mart','aprel','may','iyun','iyul','avgust','sentabr','oktabr','noyabr','dekabr'],
+ dm:(d,m)=>d+'-'+m,monS:m=>m.slice(0,3)}
+};
+let LANG='ru';
+try{const l=localStorage.getItem('guzal-lang');if(l==='uz')LANG='uz'}catch(e){}
+const T=k=>I18N[LANG][k];
+const L=o=>typeof o==='object'?o[LANG]:o;
+
+const SERVICES=[
+  {id:'classic',name:{ru:'Классический маникюр',uz:'Klassik manikyur'},price:80000,dur:45,note:{ru:'без покрытия',uz:'qoplamasiz'}},
+  {id:'gel',name:{ru:'Маникюр + гель-лак',uz:'Manikyur + gel-lak'},price:150000,dur:90,note:{ru:'однотон, укрепление базой',uz:'bir rang, baza bilan mustahkamlash'}},
+  {id:'french',name:{ru:'Френч / омбре',uz:'Fransuzcha / ombre'},price:180000,dur:105,note:{ru:'с гель-лаком',uz:'gel-lak bilan'}},
+  {id:'ext',name:{ru:'Наращивание ногтей',uz:'Tirnoq o‘stirish'},price:250000,dur:150,note:{ru:'гель, любая длина',uz:'gel, istalgan uzunlik'}},
+  {id:'corr',name:{ru:'Коррекция наращивания',uz:'O‘stirilgan tirnoq korreksiyasi'},price:200000,dur:120,note:{ru:'до 4 недель',uz:'4 haftagacha'}},
+  {id:'pedi',name:{ru:'Педикюр + гель-лак',uz:'Pedikyur + gel-lak'},price:180000,dur:90,note:{ru:'аппаратный',uz:'apparatli'}},
+  {id:'design',name:{ru:'Дизайн',uz:'Dizayn'},price:10000,dur:0,note:{ru:'за 1 ноготь, добавляется к услуге',uz:'1 ta tirnoq uchun, xizmatga qo‘shiladi'},from:true},
+  {id:'remove',name:{ru:'Снятие покрытия',uz:'Qoplamani olib tashlash'},price:30000,dur:20,note:{ru:'без нового покрытия',uz:'yangi qoplamasiz'}},
+];
+const MASTERS=[
+  {id:'guzal',name:{ru:'Гузаль',uz:'Guzal'},role:{ru:'Топ-мастер',uz:'Top-usta'},about:{ru:'Стаж 7 лет. Сложный дизайн, френч, наращивание.',uz:'7 yillik tajriba. Murakkab dizayn, fransuzcha, tirnoq o‘stirish.'},img:'img/n5.jpg'},
+  {id:'madina',name:{ru:'Мадина',uz:'Madina'},role:{ru:'Мастер',uz:'Usta'},about:{ru:'Стаж 3 года. Аккуратный однотон и педикюр.',uz:'3 yillik tajriba. Toza bir rang va pedikyur.'},img:'img/n7.jpg'},
+];
+const WORKS=[
+  {src:'img/n1.jpg',t:{ru:'Нюд + блёстки',uz:'Nyud + yaltiroq'},c:'nude'},
+  {src:'img/n2.jpg',t:{ru:'Чёрный и черепаха',uz:'Qora va toshbaqa rang'},c:'bright'},
+  {src:'img/n4.jpg',t:{ru:'Дизайн «Love»',uz:'«Love» dizayni'},c:'design'},
+  {src:'img/n3.jpg',t:{ru:'Молочный нюд',uz:'Sutli nyud'},c:'nude'},
+  {src:'img/n6.jpg',t:{ru:'Яркий абстракт',uz:'Yorqin abstrakt'},c:'design'},
+  {src:'img/n5.jpg',t:{ru:'Пудровый розовый',uz:'Pushti pudra'},c:'nude'},
+  {src:'img/n7.jpg',t:{ru:'Натуральный уход',uz:'Tabiiy parvarish'},c:'nude'},
+  {src:'img/n8.jpg',t:{ru:'Процесс работы',uz:'Ish jarayoni'},c:'bright'},
+];
+const CATS=[['all',{ru:'Все',uz:'Barchasi'}],['nude',{ru:'Нюд',uz:'Nyud'}],['design',{ru:'Дизайн',uz:'Dizayn'}],['bright',{ru:'Яркие',uz:'Yorqin'}]];
+const OPEN=10*60, CLOSE=20*60, STEP=30, DAYS=14;
+const money=n=>n.toLocaleString('ru-RU').replace(/[\s,]/g,' ')+' '+T('cur');
+const hm=m=>String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
+const durTxt=d=>d>=60?Math.floor(d/60)+' '+T('h')+(d%60?' '+d%60+' '+T('min'):''):d+' '+T('min');
+const dkey=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const dateTxt=d=>T('dm')(d.getDate(),T('mon')[d.getMonth()]);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// ---- storage (demo: bookings kept in this browser) ----
+const KEY='guzal-demo-bookings-v1';
+function seed(){
+  const out=[], names=['Дилноза','Севара','Нигора','Камила','Шахзода','Лола','Малика','Азиза'];
+  let r=7; const rnd=()=>(r=(r*9301+49297)%233280)/233280;
+  for(let i=0;i<DAYS;i++){
+    const d=new Date(); d.setDate(d.getDate()+i); if(d.getDay()===0) continue;
+    for(const m of MASTERS){
+      let t=OPEN+(rnd()<.5?0:60);
+      while(t<CLOSE-60){
+        if(rnd()<.55){const s=SERVICES[[1,1,2,3,4,5,0][Math.floor(rnd()*7)]];
+          if(t+s.dur<=CLOSE){out.push({id:'s'+out.length,date:dkey(d),start:t,dur:s.dur,master:m.id,svc:s.id,name:names[Math.floor(rnd()*names.length)],phone:'+998 9X XXX XX XX',seed:true});}
+          t+=Math.ceil(s.dur/STEP)*STEP+ (rnd()<.5?30:0);
+        } else t+=60;
+      }
+    }
+  }
+  return out;
+}
+let BOOK;
+try{BOOK=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
+if(!Array.isArray(BOOK)) BOOK=seed();
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(BOOK))}catch(e){}};
+
+// ---- state ----
+const S={svc:'gel',master:'guzal',day:null,slot:null,done:null};
+const days=[...Array(DAYS)].map((_,i)=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+i);return d});
+
+function freeSlots(dateKey,master,dur){
+  const busy=BOOK.filter(b=>b.date===dateKey&&b.master===master);
+  const now=new Date(), isToday=dateKey===dkey(now), nowM=now.getHours()*60+now.getMinutes();
+  const res=[];
+  for(let t=OPEN;t+Math.max(dur,STEP)<=CLOSE;t+=STEP){
+    const past=isToday&&t<=nowM+30;
+    const clash=busy.some(b=>t<b.start+b.dur&&b.start<t+Math.max(dur,STEP));
+    res.push({t,free:!past&&!clash});
+  }
+  return res;
+}
+const svcById=id=>SERVICES.find(s=>s.id===id);
+const mById=id=>MASTERS.find(m=>m.id===id);
+const bookable=SERVICES.filter(s=>s.dur>0);
+
+// ---- static texts ----
+function renderStatic(){
+  document.documentElement.lang=LANG;
+  document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=T(el.dataset.t));
+  document.querySelectorAll('[data-tp]').forEach(el=>el.placeholder=T(el.dataset.tp));
+  document.querySelectorAll('#lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===LANG));
+  adminToggle.textContent=admin.hidden?T('adminIn'):T('adminOut');
+}
+
+// ---- services ----
+function renderServices(){
+  svcList.innerHTML=SERVICES.map(s=>`
+  <div class="svc-row"><h3>${L(s.name)}</h3><div class="price">${s.from?T('from')(money(s.price)):money(s.price)}</div>
+  <div class="meta">${s.dur?`<span><b>${durTxt(s.dur)}</b></span>`:''}<span>${L(s.note)}</span></div></div>`).join('');
+}
+
+// ---- gallery ----
+let cat='all';
+function renderGallery(){
+  filters.innerHTML=CATS.map(([k,l])=>`<button data-c="${k}" aria-pressed="${k===cat}">${L(l)}</button>`).join('');
+  gallery.innerHTML=WORKS.filter(w=>cat==='all'||w.c===cat).map(w=>`<figure data-src="${w.src}"><img src="${w.src}" alt="${L(w.t)}" loading="lazy"><figcaption>${L(w.t)}</figcaption></figure>`).join('');
+}
+filters.onclick=e=>{const b=e.target.closest('button');if(b){cat=b.dataset.c;renderGallery()}};
+gallery.onclick=e=>{const f=e.target.closest('figure');if(f){lbImg.src=f.dataset.src;lb.hidden=false}};
+lbClose.onclick=()=>lb.hidden=true; lb.onclick=e=>{if(e.target===lb)lb.hidden=true};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.hidden=true});
+
+// ---- masters ----
+function renderMasters(){
+  masterList.innerHTML=MASTERS.map(m=>`
+  <div class="master"><div class="ph"><img src="${m.img}" alt=""></div>
+  <div><h3>${L(m.name)}</h3><p>${L(m.about)}</p><span class="tag">${L(m.role)}</span></div></div>`).join('');
+}
+
+// ---- booking ----
+function dayLabel(d){const t=new Date();t.setHours(0,0,0,0);const diff=Math.round((d-t)/864e5);return diff===0?T('today'):diff===1?T('tomorrow'):T('wd')[d.getDay()]}
+function firstFreeDay(){for(const d of days){if(d.getDay()===0)continue;if(freeSlots(dkey(d),S.master,svcById(S.svc).dur).some(s=>s.free))return dkey(d)}return null}
+function renderBooking(){
+  const svc=svcById(S.svc);
+  pickSvc.innerHTML=bookable.map(s=>`<button class="opt" data-v="${s.id}" aria-pressed="${s.id===S.svc}">${L(s.name)}<small>${money(s.price)} · ${durTxt(s.dur)}</small></button>`).join('');
+  pickMaster.innerHTML=MASTERS.map(m=>`<button class="opt" data-v="${m.id}" aria-pressed="${m.id===S.master}">${L(m.name)}<small>${L(m.role)}</small></button>`).join('');
+  if(!S.day) S.day=firstFreeDay();
+  pickDay.innerHTML=days.map(d=>{const k=dkey(d),off=d.getDay()===0,none=!off&&!freeSlots(k,S.master,svc.dur).some(s=>s.free);
+    return `<button class="day" data-v="${k}" aria-pressed="${k===S.day}" ${off||none?'disabled':''} title="${off?T('offT'):none?T('full'):''}">${dayLabel(d)}<b>${d.getDate()}</b>${off?T('off'):T('monS')(T('mon')[d.getMonth()])}</button>`}).join('');
+  const sl=S.day?freeSlots(S.day,S.master,svc.dur):[];
+  if(S.slot!=null&&!sl.find(s=>s.t===S.slot&&s.free)) S.slot=null;
+  pickSlot.innerHTML=sl.map(s=>`<button class="slot" data-v="${s.t}" ${s.free?'':'disabled'} aria-pressed="${s.t===S.slot}">${hm(s.t)}</button>`).join('')||`<p style="color:var(--muted)">${T('pickDay')}</p>`;
+  renderSummary();
+}
+function renderSummary(){
+  if(S.done){const b=S.done,d=new Date(b.date+'T00:00');
+    summary.innerHTML=`<div class="done"><div class="tick">✓</div><h3>${T('doneH')}</h3>
+    <p>${T('doneP')(esc(b.name),dateTxt(d),hm(b.start))}<br>${T('doneM')(L(svcById(b.svc).name),L(mById(b.master).name))}</p>
+    <p style="margin-top:12px">${T('remind')}</p>
+    <button class="btn ghost" id="again" style="margin-top:20px">${T('again')}</button></div>`;
+    again.onclick=()=>{S.done=null;S.slot=null;renderBooking()};return}
+  const svc=svcById(S.svc),m=mById(S.master),d=S.day?new Date(S.day+'T00:00'):null;
+  summary.innerHTML=`<p class="eyebrow" style="margin-bottom:14px">${T('yours')}</p>
+   <dl><dt>${T('svc')}</dt><dd>${L(svc.name)}</dd><dt>${T('master')}</dt><dd>${L(m.name)}</dd>
+   <dt>${T('date')}</dt><dd>${d?dateTxt(d)+', '+T('wd')[d.getDay()]:'—'}</dd>
+   <dt>${T('time')}</dt><dd>${S.slot!=null?hm(S.slot)+'–'+hm(S.slot+svc.dur):'—'}</dd></dl>
+   <div class="total"><span style="color:var(--muted)">${T('total')}</span><b>${money(svc.price)}</b></div>
+   <button class="btn" id="confirmBtn">${T('confirm')}</button>
+   <p class="err" id="err"></p>
+   <p class="demo-note">${T('demo')}</p>`;
+  document.getElementById('confirmBtn').onclick=submit;
+}
+function submit(){
+  const name=cName.value.trim(),phone=cPhone.value.trim();
+  const e=document.getElementById('err');
+  if(S.slot==null){e.textContent=T('eTime');return}
+  if(name.length<2){e.textContent=T('eName');cName.focus();return}
+  if(phone.replace(/\D/g,'').length<9){e.textContent=T('ePhone');cPhone.focus();return}
+  const svc=svcById(S.svc);
+  if(!freeSlots(S.day,S.master,svc.dur).find(s=>s.t===S.slot&&s.free)){e.textContent=T('eTaken');renderBooking();return}
+  const b={id:'b'+Date.now(),date:S.day,start:S.slot,dur:svc.dur,master:S.master,svc:S.svc,name,phone};
+  BOOK.push(b);save();S.done=b;S.slot=null;renderBooking();renderAdmin();updateNext();
+}
+pickSvc.onclick=e=>{const b=e.target.closest('button');if(b){S.svc=b.dataset.v;S.done=null;renderBooking()}};
+pickMaster.onclick=e=>{const b=e.target.closest('button');if(b){S.master=b.dataset.v;S.day=null;S.done=null;renderBooking()}};
+pickDay.onclick=e=>{const b=e.target.closest('button');if(b&&!b.disabled){S.day=b.dataset.v;S.slot=null;S.done=null;renderBooking()}};
+pickSlot.onclick=e=>{const b=e.target.closest('button');if(b&&!b.disabled){S.slot=+b.dataset.v;S.done=null;renderBooking()}};
+
+function updateNext(){
+  for(const d of days){if(d.getDay()===0)continue;for(const m of MASTERS){const f=freeSlots(dkey(d),m.id,90).find(s=>s.free);
+    if(f){nextFree.textContent=T('next')(dayLabel(d),hm(f.t));return}}}
+}
+
+// ---- admin ----
+let admDay=dkey(days[0]);
+function renderAdmin(){
+  if(admin.hidden) return;
+  admDays.innerHTML=days.map(d=>{const k=dkey(d),n=BOOK.filter(b=>b.date===k).length;
+    return `<button class="day" data-v="${k}" aria-pressed="${k===admDay}">${dayLabel(d)}<b>${d.getDate()}</b>${d.getDay()===0?T('off'):n+' '+T('rec')}</button>`}).join('');
+  const list=BOOK.filter(b=>b.date===admDay);
+  const sum=list.reduce((a,b)=>a+svcById(b.svc).price,0);
+  admTitle.textContent=T('admTitle')(dateTxt(new Date(admDay+'T00:00')));
+  admStats.innerHTML=`<div class="stat"><b>${list.length}</b>${T('recs')}</div><div class="stat"><b>${money(sum)}</b>${T('rev')}</div>`;
+  const PX=48/60;
+  let hours='';for(let t=OPEN;t<CLOSE;t+=60)hours+=`<div>${hm(t)}</div>`;
+  timeline.innerHTML=`<div><h4></h4><div class="tl-hours">${hours}</div></div>`+MASTERS.map(m=>`
+    <div class="tl-col"><h4 style="padding-left:10px">${L(m.name)}</h4><div class="tl-body" style="height:${(CLOSE-OPEN)*PX}px">
+    ${list.filter(b=>b.master===m.id).map(b=>`<div class="appt ${b.seed?'':'new'}" style="top:${(b.start-OPEN)*PX+1}px;height:${b.dur*PX-3}px">
+      <button data-id="${b.id}" aria-label="${T('cancel')}">×</button>
+      <b>${hm(b.start)} ${esc(b.name)}</b><span>${L(svcById(b.svc).name)}${b.dur>=60?'<br>'+esc(b.phone):''}</span></div>`).join('')}
+    </div></div>`).join('');
+}
+admDays.onclick=e=>{const b=e.target.closest('button');if(b){admDay=b.dataset.v;renderAdmin()}};
+timeline.onclick=e=>{const b=e.target.closest('button[data-id]');if(b){BOOK=BOOK.filter(x=>x.id!==b.dataset.id);save();renderAdmin();renderBooking();updateNext()}};
+adminToggle.onclick=()=>{admin.hidden=!admin.hidden;adminToggle.textContent=admin.hidden?T('adminIn'):T('adminOut');if(!admin.hidden){renderAdmin();admin.scrollIntoView({behavior:'smooth'})}};
+
+function renderAll(){renderStatic();renderServices();renderGallery();renderMasters();renderBooking();updateNext();renderAdmin()}
+document.getElementById('lang').onclick=e=>{const b=e.target.closest('button');if(b&&b.dataset.l!==LANG){LANG=b.dataset.l;try{localStorage.setItem('guzal-lang',LANG)}catch(err){}renderAll()}};
+
+if(location.hash==='#admin') admin.hidden=false;
+renderAll();
+</script>
+
+</body>
+</html>
